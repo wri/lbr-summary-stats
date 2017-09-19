@@ -1,20 +1,19 @@
 import requests
 
-class Analysis
+class Analysis(object):
 
     def __init__(self):
 
         self.api = "http://production-api.globalforestwatch.org/"
 
-    def make_analysis(self, endpoint, period, geostore_id):
+    def analyze(self, endpoint, period, geostore):
         '''master method to send get requests to API'''
 
         api_path = "http://production-api.globalforestwatch.org/" + endpoint
 
-        parameters = {'period'= period,
-                      'geostore' = geostore}
+        payload = {'period': period, 'geostore': geostore}
 
-        r = requests.get(api_path, params= parameters)
+        r = requests.get(api_path, params= payload)
 
         data = r.json()
 

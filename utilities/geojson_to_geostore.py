@@ -8,7 +8,7 @@ def get_geojsons(layer_name):
         geojson_url = "https://opendata.arcgis.com/datasets/2df3e0af67af40e08ed0f6af11f34e5c_0.geojson"
     elif layer_name == "Community Forests":
         geojson_url = "https://opendata.arcgis.com/datasets/b403afe5eb8e46799fe36b6ed459770c_0.geojson"
-    elif layer_name == "Forest Management Contracts"
+    elif layer_name == "Forest Management Contracts":
         geojson_url = "https://opendata.arcgis.com/datasets/0a1d9fe0749f4be29029dc8f9e932668_0.geojson"
     else:
         raise KeyError("layer_name does not exist")
