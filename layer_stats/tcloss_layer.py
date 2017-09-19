@@ -28,7 +28,6 @@ class TcLoss(Analysis):
         self.tcloss_periods['2013'] = '2013-01-01,2013-12-31'
         self.tcloss_periods['2014'] = '2014-01-01,2014-12-31'
         self.tcloss_periods['2015'] = '2015-01-01,2015-12-31'
-        self.tcloss_periods['2016'] = '2016-01-01,2016-12-31'
 
     def count_tcloss(self, layer_dict, endpoint):
         '''count TC loss for each feature geostore and append the output to the dict
@@ -37,11 +36,11 @@ class TcLoss(Analysis):
         :return: updated layer_dict with loss calculations'''
 
         #send analysis request record result in dict
-        for period in self.tcloss_periods:
-            for key in layer_dict:
-                geostore = layer_dict[key]['geostore']
+        for key in layer_dict:
+            geostore = layer_dict[key]['geostore']
 
-                data = Analysis().analyze(endpoint, period, geostore)
+            for period in self.tcloss_periods:
+                data = Analysis().analyze(endpoint, self.tcloss_periods[period], geostore)
 
                 try:
                     loss = data['data']['attributes']['loss']

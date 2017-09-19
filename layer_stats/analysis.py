@@ -31,10 +31,6 @@ class Analysis(object):
         :param layer_name: the dataset of the Stats
         :param layer_stats: a dictionary of the statistics'''
 
-        wks = gs._open_spreadsheet(layer_name)
-
-        total_features = len(layer_stats)
-
         for id, loss_dict in layer_stats.iteritems():
             for col_name, loss_val in loss_dict.iteritems():
                 try:
