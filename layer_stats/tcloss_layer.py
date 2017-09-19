@@ -36,13 +36,33 @@ class TcLoss(Analysis):
         :param endpoint: the api endpoint string
         :return: updated layer_dict with loss calculations'''
 
+        #send analysis request record result in dict
         for period in self.tcloss_periods:
             for key in layer_dict:
                 geostore = layer_dict[key]['geostore']
 
                 data = Analysis().analyze(endpoint, period, geostore)
 
-                loss = data['data']['attributes']['loss']
-                layer_dict[key]['tc_loss_' + period] = loss
+                try:
+                    loss = data['data']['attributes']['loss']
+                    layer_dict[key]['tc_loss_' + period] = loss
+                    print "loss calculated for {0} at {1}".format(key, period)
+                except KeyError, e:
+                    print "key error for {0} because {1}".format(key, str(e))
+
+        #pop off geostore
+        for key in layer_dict:
+            layer_dict[key].pop('geostore', 0)
 
         return layer_dict
+
+    def update_gs(self, layer_name):
+
+        #get layer_dict (feature name geostore id)
+        layer_dict = geojson_to_geostore.create_geostore_dict(layer_name)
+
+        #get layer stats (feature name, geostore id and loss stats)
+        layer_stats = self.count_tcloss(layer_dict, 'umd-loss-gain')
+
+        #update google spreadsheet with layer stats
+        Analysis().update_sheet(layer_name, layer_stats)
