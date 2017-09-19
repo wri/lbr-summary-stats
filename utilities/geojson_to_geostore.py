@@ -41,4 +41,5 @@ def create_geostore_dict(layer_name):
         layer_dict[geojson['features'][x]['properties']['NAME']] = {}
         layer_dict[geojson['features'][x]['properties']['NAME']]['geostore'] = geostore_id
 
+    print "feature geostore ID dict created for %s" %(layer_name)
     return layer_dict
