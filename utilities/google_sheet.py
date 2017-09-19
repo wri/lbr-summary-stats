@@ -2,6 +2,7 @@ import json
 import gspread
 import os
 import logging
+import requests
 from oauth2client.service_account import ServiceAccountCredentials
 
 #https://docs.google.com/spreadsheets/d/1uWL2xf7XNkRfqmfBeV-KtEKLky_4kVFA7dZIsBMjuB8/edit?usp=sharing
@@ -151,3 +152,15 @@ def update_gs_timestamp(layername, gfw_env):
 
     if associated_global_layer:
         set_value('tech_title', associated_global_layer, 'last_updated', gfw_env, time.strftime("%m/%d/%Y"))
+
+def download_spreadsheet(url):
+
+    r = requests.get(url)
+    assert r.status_code == 200, 'Wrong status code'
+
+    output_dir = r"C:\Users\asa.strong\Desktop\dev\lbr-summary-stats\output"
+
+    with open(os.path.join(output_dir, 'lbr-summary-stats.csv'), 'wb') as f:
+        f.write(r.content)
+
+    print "lbr-summary-stats csv downloaded"
