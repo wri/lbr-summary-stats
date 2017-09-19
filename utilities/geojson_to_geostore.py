@@ -23,7 +23,7 @@ def create_geostore_dict(layer_name):
     '''create geostoreID from geojson by sending post request to API'''
 
     #geostore dict will hold data name and geostore id
-    geostore_dict = {}
+    layer_dict = {}
 
     #path to geostore microservice
     api_path = "https://production-api.globalforestwatch.org/geostore"
@@ -31,12 +31,14 @@ def create_geostore_dict(layer_name):
     #get geojson
     geojson = get_geojsons(layer_name)
 
-    #create dict
+    #create dict of data name and geostore ID
     for x in range (0, len(geojson['features'])):
         geometry = geojson['features'][x]['geometry']
-        payload = {"geojson": geojson}
+        payload = {"geojson": geometry}
         r = requests.post(api_path, json=payload)
         geostore_id = r.json()["data"]["id"]
-        geostore_dict[geojson['features'][x]['properties']['NAME']] = geostore_id
 
-    return geostore_dict
+        layer_dict[geojson['features'][x]['properties']['NAME']] = {}
+        layer_dict[geojson['features'][x]['properties']['NAME']]['geostore'] = geostore_id
+
+    return layer_dict

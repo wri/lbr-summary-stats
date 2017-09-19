@@ -2,6 +2,10 @@ import requests
 
 class Analysis
 
+    def __init__(self):
+
+        self.api = "http://production-api.globalforestwatch.org/"
+
     def make_analysis(self, endpoint, period, geostore_id):
         '''master method to send get requests to API'''
 
