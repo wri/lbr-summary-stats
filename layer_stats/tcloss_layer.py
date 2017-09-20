@@ -2,6 +2,7 @@ import requests
 
 from analysis import Analysis
 from utilities import geojson_to_geostore
+from utilities import google_sheet as gs
 
 class TcLoss(Analysis):
     '''class to define requests to UMD api. Inherits from Analysis class'''
@@ -28,6 +29,7 @@ class TcLoss(Analysis):
         self.tcloss_periods['2013'] = '2013-01-01,2013-12-31'
         self.tcloss_periods['2014'] = '2014-01-01,2014-12-31'
         self.tcloss_periods['2015'] = '2015-01-01,2015-12-31'
+        self.tcloss_periods['2000-2015'] = '2000-01-01,2015-12-31'
 
     def count_tcloss(self, layer_dict, endpoint):
         '''count TC loss for each feature geostore and append the output to the dict
@@ -65,3 +67,6 @@ class TcLoss(Analysis):
 
         #update google spreadsheet with layer stats
         Analysis().update_sheet(layer_name, layer_stats)
+
+        #Download spreadsheet
+        gs.download_spreadsheet('https://docs.google.com/spreadsheets/d/1uWL2xf7XNkRfqmfBeV-KtEKLky_4kVFA7dZIsBMjuB8/export?format=csv&id=1uWL2xf7XNkRfqmfBeV-KtEKLky_4kVFA7dZIsBMjuB8&gid=0')
