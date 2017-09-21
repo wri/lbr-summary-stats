@@ -12,21 +12,22 @@ statistic calculations.
 
 To create a table of forest change stats for the Protected Areas in Liberia:
 
-'''python run_stats.py -r protected_areas'''
+'python run_stats.py -r protected_areas'
 
 To create a table of forest change stats for the Forest Management Contracts in Liberia:
 
-'''python run_stats.py -r forest_management_contracts'''
+'python run_stats.py -r forest_management_contracts'
 
 To create a table of forest change stats for the Community Forests in Liberia:
 
-'''python run_stats.py community_forests
+'python run_stats.py community_forests'
 
 ## Available analyses
 
 The GFW analyses currently available for Liberia include:
 
 Dataset | Description
+--- | ---
 Tree cover loss | Identifies areas of gross tree cover loss (2001-2015)
 Tree cover gain | Identifies areas of tree cover gain (2000-2012)
 Terra I Alerts | Detects areas where tree cover loss is likely to have recently occurred (2000-2016)
