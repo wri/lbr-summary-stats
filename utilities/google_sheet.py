@@ -96,14 +96,14 @@ def update_gs_timestamp(layername, gfw_env):
     if associated_global_layer:
         set_value('tech_title', associated_global_layer, 'last_updated', gfw_env, time.strftime("%m/%d/%Y"))
 
-def download_spreadsheet(url):
+def download_spreadsheet(layer_name, url):
 
     r = requests.get(url)
     assert r.status_code == 200, 'Wrong status code'
 
     output_dir = r"D:\scripts\lbr-summary-stats\output"
 
-    with open(os.path.join(output_dir, 'lbr-summary-stats.csv'), 'wb') as f:
+    with open(os.path.join(output_dir, layer_name + '.csv'), 'wb') as f:
         f.write(r.content)
 
-    print "lbr-summary-stats csv downloaded"
+    print "%s csv downloaded" %(layer_name)

@@ -42,13 +42,13 @@ class TcLoss(Analysis):
             geostore = layer_dict[key]['geostore']
 
             for period in self.tcloss_periods:
-                data = Analysis().analyze(endpoint, self.tcloss_periods[period], geostore)
+                data = Analysis().analyze(endpoint, geostore, self.tcloss_periods[period])
 
                 try:
                     loss = data['data']['attributes']['loss']
                     layer_dict[key]['tc_loss_' + period] = loss
                     print "loss calculated for {0} at {1}".format(key, period)
-                except KeyError, e:
+                except (KeyError, TypeError) as e:
                     print "key error for {0} because {1}".format(key, str(e))
 
         #pop off geostore
@@ -65,8 +65,4 @@ class TcLoss(Analysis):
         #get layer stats (feature name, geostore id and loss stats)
         layer_stats = self.count_tcloss(layer_dict, 'umd-loss-gain')
 
-        #update google spreadsheet with layer stats
-        Analysis().update_sheet(layer_name, layer_stats)
-
-        #Download spreadsheet
-        gs.download_spreadsheet('https://docs.google.com/spreadsheets/d/1uWL2xf7XNkRfqmfBeV-KtEKLky_4kVFA7dZIsBMjuB8/export?format=csv&id=1uWL2xf7XNkRfqmfBeV-KtEKLky_4kVFA7dZIsBMjuB8&gid=0')
+        return layer_stats

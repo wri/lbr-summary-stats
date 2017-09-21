@@ -1,6 +1,8 @@
 import argparse
 
+from layer_stats.analysis import Analysis
 from layer_stats.tcloss_layer import TcLoss
+from layer_stats.tcgain_layer import TcGain
 
 def main():
 
@@ -13,10 +15,24 @@ def main():
 
     #make request to count TCloss, update gs
     if args.run == "protected_areas":
-        TcLoss().update_gs('Protected Areas')
+
+        #get tcloss stats for Protected Areas
+        tcloss_stats = TcLoss().update_gs('Protected Areas')
+
+        #get tcgain stats for Protected Areas
+        tcgain_stats = TcGain().update_gs('Protected Areas')
+
+        #combine ditionaries
+        all_stats = Analysis().combine_stats(tcloss_stats, tcgain_stats)
+
+        #update google spreadsheet with layer stats
+        Analysis().update_sheet('Protected Areas', all_stats)
+
         print "GS updated with TC loss data"
+
     else:
         print "Argument not found"
+
 
 if __name__ == "__main__":
     main()
