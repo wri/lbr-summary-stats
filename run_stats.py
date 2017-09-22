@@ -1,8 +1,7 @@
 import argparse
 
 from layer_stats.analysis import Analysis
-from layer_stats.tcloss_layer import TcLoss
-from layer_stats.tcgain_layer import TcGain
+from layer_stats.umd_layer import UmdLayer
 
 def main():
 
@@ -17,16 +16,13 @@ def main():
     if args.run == "protected_areas":
 
         #get tcloss stats for Protected Areas
-        tcloss_stats = TcLoss().update_gs('Protected Areas')
-
-        #get tcgain stats for Protected Areas
-        tcgain_stats = TcGain().update_gs('Protected Areas')
+        umd_stats = UmdLayer().update_gs('Protected Areas')
 
         #combine ditionaries
-        all_stats = Analysis().combine_stats(tcloss_stats, tcgain_stats)
+        # all_stats = Analysis().combine_stats(tcloss_stats, tcgain_stats)
 
         #update google spreadsheet with layer stats
-        Analysis().update_sheet('Protected Areas', all_stats)
+        Analysis().update_sheet('Protected Areas', umd_stats)
 
         print "GS updated with TC loss data"
 

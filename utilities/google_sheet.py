@@ -14,7 +14,7 @@ def _open_spreadsheet(sheet_name, custom_key=False):
     """
 
     #path to Oauth json creds
-    spreadsheet_file = r"D:\scripts\lbr-summary-stats\tokens\spreadsheet.json"
+    spreadsheet_file = os.getcwd() + r"/tokens/spreadsheet.json"
 
     if custom_key:
         spreadsheet_key = custom_key
@@ -101,7 +101,7 @@ def download_spreadsheet(layer_name, url):
     r = requests.get(url)
     assert r.status_code == 200, 'Wrong status code'
 
-    output_dir = r"D:\scripts\lbr-summary-stats\output"
+    output_dir = os.getcwd() + r"/output"
 
     with open(os.path.join(output_dir, layer_name + '.csv'), 'wb') as f:
         f.write(r.content)
