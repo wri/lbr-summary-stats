@@ -2,6 +2,8 @@ import argparse
 
 from layer_stats.analysis import Analysis
 from layer_stats.umd_layer import UmdLayer
+from layer_stats.terrai_layer import TerraiLayer
+from layer_stats.biomass_layer import BiomassLayer
 
 def main():
 
@@ -18,11 +20,18 @@ def main():
         #get tcloss stats for Protected Areas
         umd_stats = UmdLayer().update_gs('Protected Areas')
 
+        #Get Terra I stats for Protected Areas
+        #Todo: fix terrai api for geostore requests (e.g., f57027ebca24f1a91eca803392bd5e0d)
+        #terrai_stats = TerraiLayer().update_gs('Protected Areas')
+
+        #Get Biomass Stats
+        biomass_stats = BiomassLayer().update_gs('Protected Areas')
+
         #combine ditionaries
-        # all_stats = Analysis().combine_stats(tcloss_stats, tcgain_stats)
+        all_stats = Analysis().combine_stats(umd_stats, biomass_stats=biomass_stats)
 
         #update google spreadsheet with layer stats
-        Analysis().update_sheet('Protected Areas', umd_stats)
+        Analysis().update_sheet('Protected Areas', all_stats)
 
         print "GS updated with TC loss data"
 
