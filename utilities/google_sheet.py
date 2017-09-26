@@ -70,7 +70,7 @@ def get_cell_location(unique_id_col, unique_id_value, colname, sheet_name, sprea
 def set_value(unique_id_col, unique_id_value, colname, sheet_name, in_update_value, spreadsheet_key=None):
     """
     Update a value in the spreadsheet given the layername and column name
-    :param unique_id_col: the column that has unique ids (tech_title in the config table)
+    :param unique_id_col: the column that has unique ids
     :param unique_id_value: the particular value we're looking for in the unique id col
     :param colname: the column name to update
     :param sheet_name: the name of the sheet to update

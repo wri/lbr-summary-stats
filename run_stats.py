@@ -37,6 +37,9 @@ def main():
         Analysis().update_sheet('Protected Areas', biomass_stats)
         print "GS Updated with Biomass data for Protected Areas"
 
+        #Downlaod sheet_name
+        Analysis().download_sheet('Protected Areas')
+
     elif args.run == 'forest_management_contracts':
 
         #get tcloss stats for Protected Areas
@@ -58,6 +61,9 @@ def main():
 
         Analysis().update_sheet('Forest Management Contracts', biomass_stats)
         print "GS Updated with Biomass data for Forest Management Contracts"
+
+        #Downlaod sheet_name
+        Analysis().download_sheet('Forest Management Contracts')
 
     elif args.run == 'community_forests':
 

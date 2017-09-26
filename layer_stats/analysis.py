@@ -63,12 +63,20 @@ class Analysis(object):
         except ValueError, e:
             print "Value Error when decoding json because {}".format(str(e))
 
-    def combine_stats(self, umd_stats, terrai_stats=None, biomass_stats=None):
+    def combine_stats(self, umd_stats=None, terrai_stats=None, biomass_stats=None):
         '''combine statsitic dictionaries
         :param tcloss_stats: stats generated from TcLoss class
         :param tcgain_stats: stats generated from TcGain class'''
 
-        all_stats = umd_stats
+        #current error point
+        #how to append new key values to all stats dict without overwriting?
+
+        all_stats = {}
+
+        #if stats are provided, add them to a single dict based on feature name
+        if umd_stats:
+            for key in umd_stats:
+                all_stats[key] = umd_stats[key]
 
         #add Terra I Stats
         if terrai_stats:
@@ -88,17 +96,28 @@ class Analysis(object):
     def update_sheet(self, layer_name, layer_stats):
         '''method to update google sheet with layer_stats
         :param layer_name: the dataset of the Stats
-        :param layer_stats: a dictionary of the statistics'''
+        :param layer_stats: a dictionary of the stats'''
 
-        for id, loss_dict in layer_stats.iteritems():
-            for col_name, loss_val in loss_dict.iteritems():
-                try:
-                    gs.set_value('Name', id, col_name, layer_name, loss_val)
-                    print "loss values set for {0} at {1}".format(id, col_name)
-                except ValueError, e:
-                    print "value error for {0} because {1}".format(id, str(e))
+        #how to update a particular sheet?
 
+        # for id, loss_dict in layer_stats.iteritems():
+        #     for col_name, loss_val in loss_dict.iteritems():
+        #         print "updating {0} at {1} and col {2} with {3}".format(layer_name, id, col_name, loss_val)
+        #         try:
+        #             gs.set_value('Name', id, col_name, layer_name, loss_val)
+        #             print "{0} values set for {1} at {2}".format(layer_name, id, col_name)
+        #         except ValueError, e:
+        #             print "value error for {0} because {1}".format(id, str(e))
+
+    def download_sheet(self, layer_name):
         #Download spreadsheet
         csv_name = layer_name.replace(" ", "_")
-        download_url = 'https://docs.google.com/spreadsheets/d/1uWL2xf7XNkRfqmfBeV-KtEKLky_4kVFA7dZIsBMjuB8/export?format=csv&id=1uWL2xf7XNkRfqmfBeV-KtEKLky_4kVFA7dZIsBMjuB8&gid=0'
+
+        if layer_name == "Protected Areas":
+            download_url = 'https://docs.google.com/spreadsheets/d/1uWL2xf7XNkRfqmfBeV-KtEKLky_4kVFA7dZIsBMjuB8/export?format=csv&id=1uWL2xf7XNkRfqmfBeV-KtEKLky_4kVFA7dZIsBMjuB8&gid=0'
+        elif layer_name == "Forest Management Contracts":
+            download_url = 'https://docs.google.com/spreadsheets/d/1uWL2xf7XNkRfqmfBeV-KtEKLky_4kVFA7dZIsBMjuB8/export?format=csv&id=1uWL2xf7XNkRfqmfBeV-KtEKLky_4kVFA7dZIsBMjuB8&gid=1463225161'
+        elif layer_name == 'Community Forests':
+            download_url = 'https://docs.google.com/spreadsheets/d/1uWL2xf7XNkRfqmfBeV-KtEKLky_4kVFA7dZIsBMjuB8/export?format=csv&id=1uWL2xf7XNkRfqmfBeV-KtEKLky_4kVFA7dZIsBMjuB8&gid=1516982985'
+
         gs.download_spreadsheet(csv_name, download_url)
