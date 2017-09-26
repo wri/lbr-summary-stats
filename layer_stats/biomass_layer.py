@@ -20,6 +20,7 @@ class BiomassLayer(Analysis):
         #send analysis request record result in dict
         for key in layer_dict:
             geostore = layer_dict[key]['geostore']
+            print "running analysis for {0} with geostore: {1}".format(key, geostore)
 
             #calculate biomass stats for area
             data = Analysis().analyze(endpoint, geostore)
@@ -32,9 +33,9 @@ class BiomassLayer(Analysis):
             except (KeyError, TypeError) as e:
                 print "Biomass key or type error for {0} because {1}".format(key, str(e))
 
-        #pop off geostore
-        for key in layer_dict:
-            layer_dict[key].pop('geostore', 0)
+        # #pop off geostore
+        # for key in layer_dict:
+        #     layer_dict[key].pop('geostore', 0)
 
         return layer_dict
 
@@ -42,8 +43,10 @@ class BiomassLayer(Analysis):
 
         #get layer_dict (feature name geostore id)
         layer_dict = geojson_to_geostore.create_geostore_dict(layer_name)
+        print layer_dict
 
         #get layer stats (feature name, geostore id and loss stats)
         layer_stats = self.calculate_carbon_emissions(layer_dict, 'biomass-loss')
+        print layer_stats
 
         return layer_stats
