@@ -22,6 +22,12 @@ def get_geojsons(layer_name):
 def create_geostore_dict(layer_name):
     '''create geostoreID from geojson by sending post request to API'''
 
+    #identify feature name attribute by layer type
+    if layer_name == 'Protected Areas':
+        attr_name = 'NAME'
+    elif layer_name == 'Forest Management Contracts':
+        attr_name = 'Name'
+
     #geostore dict will hold data name and geostore id
     layer_dict = {}
 
@@ -38,8 +44,8 @@ def create_geostore_dict(layer_name):
         r = requests.post(api_path, json=payload)
         geostore_id = r.json()["data"]["id"]
 
-        layer_dict[geojson['features'][x]['properties']['NAME']] = {}
-        layer_dict[geojson['features'][x]['properties']['NAME']]['geostore'] = geostore_id
+        layer_dict[geojson['features'][x]['properties'][attr_name]] = {}
+        layer_dict[geojson['features'][x]['properties'][attr_name]]['geostore'] = geostore_id
 
     print "feature geostore ID dict created for %s" %(layer_name)
     return layer_dict
