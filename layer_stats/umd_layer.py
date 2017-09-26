@@ -20,6 +20,7 @@ class UmdLayer(Analysis):
         #send analysis request record result in dict
         for key in layer_dict:
             geostore = layer_dict[key]['geostore']
+            print "running analysis for {0} with geostore: {1}".format(key, geostore)
 
             #calculate gain and extent
             data = Analysis().analyze(endpoint, geostore)
