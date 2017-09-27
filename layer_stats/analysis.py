@@ -63,53 +63,23 @@ class Analysis(object):
         except ValueError, e:
             print "Value Error when decoding json because {}".format(str(e))
 
-    def combine_stats(self, umd_stats=None, terrai_stats=None, biomass_stats=None):
-        '''combine statsitic dictionaries
-        :param tcloss_stats: stats generated from TcLoss class
-        :param tcgain_stats: stats generated from TcGain class'''
-
-        #current error point
-        #how to append new key values to all stats dict without overwriting?
-
-        all_stats = {}
-
-        #if stats are provided, add them to a single dict based on feature name
-        if umd_stats:
-            for key in umd_stats:
-                all_stats[key] = umd_stats[key]
-
-        #add Terra I Stats
-        if terrai_stats:
-            for key in all_stats:
-                for period in self.terrai_periods:
-                    all_stats[key]['terrai_' + period] = terrai_stats[key]['terrai_' + period]
-
-        if biomass_stats:
-            for key in all_stats:
-                for name in biomass_stats:
-                    for year in biomass_stats[name]:
-                        all_stats[key][year] = biomass_stats[name][year]
-
-
-        return all_stats
-
     def update_sheet(self, layer_name, layer_stats):
         '''method to update google sheet with layer_stats
         :param layer_name: the dataset of the Stats
         :param layer_stats: a dictionary of the stats'''
 
-        #how to update a particular sheet?
-
-        # for id, loss_dict in layer_stats.iteritems():
-        #     for col_name, loss_val in loss_dict.iteritems():
-        #         print "updating {0} at {1} and col {2} with {3}".format(layer_name, id, col_name, loss_val)
-        #         try:
-        #             gs.set_value('Name', id, col_name, layer_name, loss_val)
-        #             print "{0} values set for {1} at {2}".format(layer_name, id, col_name)
-        #         except ValueError, e:
-        #             print "value error for {0} because {1}".format(id, str(e))
+        for id, loss_dict in layer_stats.iteritems():
+            for col_name, loss_val in loss_dict.iteritems():
+                print "updating {0} at {1} and col {2} with {3}".format(layer_name, id, col_name, loss_val)
+                try:
+                    gs.set_value('Name', id, col_name, layer_name, loss_val)
+                    print "{0} values set for {1} at {2}".format(layer_name, id, col_name)
+                except ValueError, e:
+                    print "value error for {0} because {1}".format(id, str(e))
 
     def download_sheet(self, layer_name):
+        '''download csv by sheet
+        :param layer_name: name of dataset'''
         #Download spreadsheet
         csv_name = layer_name.replace(" ", "_")
 

@@ -87,6 +87,9 @@ def main():
         Analysis().update_sheet('Community Forests', biomass_stats)
         print "GS Updated with Biomass data for Community Forests"
 
+        #Downlaod sheet_name
+        Analysis().download_sheet('Community Forests')
+
     else:
         print "Argument not found"
 

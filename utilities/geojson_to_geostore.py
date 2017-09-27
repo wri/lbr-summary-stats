@@ -27,6 +27,8 @@ def create_geostore_dict(layer_name):
         attr_name = 'NAME'
     elif layer_name == 'Forest Management Contracts':
         attr_name = 'Name'
+    elif layer_name == 'Community Forests':
+        attr_name = 'Name'
 
     #geostore dict will hold data name and geostore id
     layer_dict = {}
