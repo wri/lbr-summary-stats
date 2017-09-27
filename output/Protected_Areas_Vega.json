@@ -1,0 +1,11 @@
+{
+  "type": "bar",
+  "dataset": {
+    "url": "https://services6.arcgis.com/bIipaUHHcz1GaAsv/arcgis/rest/services/Protected_Areas_Stats/FeatureServer/0",
+    "mappings": {
+      "x": {"field": "Name","label": "Protected Area Name"},
+      "y": {"field": "tc_loss_2000-2015","label": "Tree cover loss 2000 to 2015"},
+      "color": {"field": "Name","label": "Protected Area Name"}
+    }
+  }
+}

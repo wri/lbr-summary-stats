@@ -1,0 +1,11 @@
+{
+  "type": "scatter",
+  "dataset": {
+    "url": "https://services6.arcgis.com/bIipaUHHcz1GaAsv/arcgis/rest/services/Forest_Management_Contracts_Stats/FeatureServer/0",
+    "mappings": {
+      "x": {"field": "Name","label": "Forest Management Contract"},
+      "y": {"field": "tc_loss_2002","label": "Tree Cover Loss 20002"},
+      "color": {"field": "Name","label": "Contract Name"}
+    }
+  }
+}
