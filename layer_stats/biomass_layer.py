@@ -33,13 +33,12 @@ class BiomassLayer(Analysis):
             except (KeyError, TypeError) as e:
                 print "Biomass key or type error for {0} because {1}".format(key, str(e))
 
-        # #pop off geostore
-        # for key in layer_dict:
-        #     layer_dict[key].pop('geostore', 0)
-
         return layer_dict
 
     def update_gs(self, layer_name):
+        '''get geojson dict and calculates stats for the data
+        :param layer_name: name of the datasets
+        :return: updated dictionary of statsitics for biomass loss'''
 
         #get layer_dict (feature name geostore id)
         layer_dict = geojson_to_geostore.create_geostore_dict(layer_name)

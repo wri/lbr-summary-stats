@@ -52,6 +52,9 @@ class UmdLayer(Analysis):
         return layer_dict
 
     def update_gs(self, layer_name):
+        '''get geojson dict and calculates stats for the data
+        :param layer_name: name of the datasets
+        :return: updated dictionary of statsitics for umd loss, gain and extent'''
 
         #get layer_dict (feature name geostore id)
         layer_dict = geojson_to_geostore.create_geostore_dict(layer_name)
