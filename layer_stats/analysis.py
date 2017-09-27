@@ -1,4 +1,5 @@
 import requests
+import requests_cache
 
 from utilities import google_sheet as gs
 
@@ -52,12 +53,16 @@ class Analysis(object):
         :param geostore: unique hash assigned to geojson
         :return: response from the GFW API'''
 
+        #Add requests cachine to speed up json requests
+        requests_cache.install_cache(endpoint, backend='sqlite', expire_after=10000000)
+
         api_path = self.api + endpoint
 
         payload = {'period': period, 'geostore': geostore}
 
         try:
             r = requests.get(api_path, params= payload)
+            print "using cache {}".format(str(r.from_cache))
             data = r.json()
             return data
         except ValueError, e:
@@ -68,9 +73,11 @@ class Analysis(object):
         :param layer_name: the dataset of the Stats
         :param layer_stats: a dictionary of the stats'''
 
+        #ToDo need to invert my spreadsheet so that the names of the features are the columns
+
         for id, loss_dict in layer_stats.iteritems():
             for col_name, loss_val in loss_dict.iteritems():
-                print "updating {0} at {1} and col {2} with {3}".format(layer_name, id, col_name, loss_val)
+                print "updating {0} at {1} and col {2} with {3}".format(layer_name, col_name, id, loss_val)
                 try:
                     gs.set_value('Name', id, col_name, layer_name, loss_val)
                     print "{0} values set for {1} at {2}".format(layer_name, id, col_name)
@@ -79,9 +86,11 @@ class Analysis(object):
 
     def download_sheet(self, layer_name):
         '''download csv by sheet
-        :param layer_name: name of dataset'''
+        :param layer_name: name of dataset will be name of CSV'''
+
         #Download spreadsheet
-        csv_name = layer_name.replace(" ", "_")
+        csv = layer_name.replace(" ", "_")
+        csv_name = csv + '_Stats'
 
         if layer_name == "Protected Areas":
             download_url = 'https://docs.google.com/spreadsheets/d/1uWL2xf7XNkRfqmfBeV-KtEKLky_4kVFA7dZIsBMjuB8/export?format=csv&id=1uWL2xf7XNkRfqmfBeV-KtEKLky_4kVFA7dZIsBMjuB8&gid=0'
