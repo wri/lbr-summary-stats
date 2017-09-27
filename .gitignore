@@ -8,3 +8,6 @@ __pycache__/
 
 #tokens
 tokens/
+
+#cache database
+*.sqlite
