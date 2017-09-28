@@ -11,3 +11,6 @@ tokens/
 
 #cache database
 *.sqlite
+
+#Notes
+*.txt
