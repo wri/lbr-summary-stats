@@ -24,11 +24,10 @@ class Analysis(object):
         self.terrai_periods['2014'] = '2014-01-01,2014-12-31'
         self.terrai_periods['2015'] = '2015-01-01,2015-12-31'
         self.terrai_periods['2016'] = '2016-01-01,2016-12-31'
-        self.terrai_periods['2004-2016'] = '2004-01-01,2016-12-31'
+        self.terrai_periods['2004_2016'] = '2004-01-01,2016-12-31'
 
         #create period dict for UMD Loss
         self.tcloss_periods = {}
-        self.tcloss_periods['2000'] = '2000-01-01,2000-12-31'
         self.tcloss_periods['2001'] = '2001-01-01,2001-12-31'
         self.tcloss_periods['2002'] = '2002-01-01,2002-12-31'
         self.tcloss_periods['2003'] = '2003-01-01,2003-12-31'
@@ -44,7 +43,7 @@ class Analysis(object):
         self.tcloss_periods['2013'] = '2013-01-01,2013-12-31'
         self.tcloss_periods['2014'] = '2014-01-01,2014-12-31'
         self.tcloss_periods['2015'] = '2015-01-01,2015-12-31'
-        self.tcloss_periods['2000-2015'] = '2000-01-01,2015-12-31'
+        self.tcloss_periods['2000_2015'] = '2001-01-01,2015-12-31'
 
     def analyze(self, endpoint, geostore, period=None):
         '''master method to send get requests to API
@@ -72,8 +71,7 @@ class Analysis(object):
         '''method to update google sheet with layer_stats
         :param layer_name: the dataset of the Stats
         :param layer_stats: a dictionary of the stats'''
-
-        #ToDo need to invert my spreadsheet so that the names of the features are the columns
+        #Todo add optional fields list argument
 
         for id, loss_dict in layer_stats.iteritems():
             for col_name, loss_val in loss_dict.iteritems():
