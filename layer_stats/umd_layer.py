@@ -49,7 +49,7 @@ class UmdLayer(Analysis):
                     data[key]['extent'] = stats['data']['attributes']['treeExtent'] * 2.47105 #convert to acres
                     data[key]['area'] = stats['data']['attributes']['areaHa'] * 2.47105 #convert to acres
                 else:
-                    print "Feature not found in data"
+                    print "Feature not found in data during umd extent and gain analysis {}".format(features)
 
             return data
 
@@ -88,7 +88,7 @@ class UmdLayer(Analysis):
                         print "key or type error for {0} because {1}".format(key, str(e))
 
                 else:
-                    print "feature not found in data"
+                    print "feature not found in data during umd loss analysis {}".format(features)
 
             return layer_stats
 

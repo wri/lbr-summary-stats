@@ -23,7 +23,7 @@ def main():
         umd_stats = UmdLayer().update_gs('Protected Areas', features=args.features)
 
         # Get Biomass Stats
-        biomass_stats = BiomassLayer().update_gs('Protected Areas')
+        biomass_stats = BiomassLayer().update_gs('Protected Areas', features=args.features)
 
         # update google spreadsheet with layer stats
         Analysis().update_sheet('Protected Areas', umd_stats)
@@ -41,7 +41,7 @@ def main():
         umd_stats = UmdLayer().update_gs('Forest Management Contracts', features=args.features)
 
         # Get Biomass Stats
-        biomass_stats = BiomassLayer().update_gs('Forest Management Contracts')
+        biomass_stats = BiomassLayer().update_gs('Forest Management Contracts', features=args.features)
 
         #update google spreadsheet with layer stats
         Analysis().update_sheet('Forest Management Contracts', umd_stats)
@@ -59,7 +59,7 @@ def main():
         umd_stats = UmdLayer().update_gs('Community Forests', features=args.features)
 
         #Get Biomass Stats
-        biomass_stats = BiomassLayer().update_gs('Community Forests')
+        biomass_stats = BiomassLayer().update_gs('Community Forests', features=args.features)
 
         #update google spreadsheet with layer stats
         Analysis().update_sheet('Community Forests', umd_stats)
