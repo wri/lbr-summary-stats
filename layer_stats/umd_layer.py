@@ -15,9 +15,8 @@ class UmdLayer(Analysis):
         '''count TC loss for each feature geostore and append the output to the dict
         :param layer_dict: dict of feature names and geostore ids
         :param endpoint: the api endpoint string
-        :param fields: optional list of fields to update with statistics
         :param features: optional list of features to update with statistics
-        :return: updated layer_dict with loss calculations'''
+        :return: updated layer_dict with gain, extent and total area calculations'''
 
         #create empty list (analysis results will be appended)
         data = {}
@@ -49,10 +48,18 @@ class UmdLayer(Analysis):
                     data[key]['gain'] = stats['data']['attributes']['gain'] * 2.47105 #convert to acres
                     data[key]['extent'] = stats['data']['attributes']['treeExtent'] * 2.47105 #convert to acres
                     data[key]['area'] = stats['data']['attributes']['areaHa'] * 2.47105 #convert to acres
+                else:
+                    print "Feature not found in data"
 
             return data
 
     def count_loss(self, layer_dict, layer_stats, endpoint, features=None):
+        '''count total tree cover loss by year for each features
+        :param layer_dict: geostore and feature name dictionary
+        :param layer_stats: statistic dictionary of extent, gain and area stats
+        :param endpoint: the api endpoint for the analyses
+        :param features: optional list of specific features to update with stats
+        :return: updated layer_stats dict with loss stats'''
 
         if features == None:
             for key in layer_stats:
@@ -70,6 +77,7 @@ class UmdLayer(Analysis):
         elif features:
             for key in layer_stats:
                 geostore = layer_dict[key]['geostore']
+
                 if key in features:
                     try:
                         for period in self.tcloss_periods:
@@ -79,20 +87,24 @@ class UmdLayer(Analysis):
                     except (KeyError, TypeError) as e:
                         print "key or type error for {0} because {1}".format(key, str(e))
 
+                else:
+                    print "feature not found in data"
+
             return layer_stats
 
-    def update_gs(self, layer_name):
+    def update_gs(self, layer_name, features=None):
         '''get geojson dict and calculates stats for the data
         :param layer_name: name of the datasets
+        :param features: optional list of specific features to update in the data
         :return: updated dictionary of statsitics for umd loss, gain and extent'''
 
         #get layer_dict (feature name geostore id)
         layer_dict = geojson_to_geostore.create_geostore_dict(layer_name)
 
         # count gain and extent
-        layer_stats = self.count_gain_extent(layer_dict, 'umd-loss-gain', features=['Lake Piso'])
+        layer_stats = self.count_gain_extent(layer_dict, 'umd-loss-gain', features)
 
         #get loss data
-        layer_stats_all = self.count_loss(layer_dict, layer_stats, 'umd-loss-gain', features=['Lake Piso'])
+        layer_stats_all = self.count_loss(layer_dict, layer_stats, 'umd-loss-gain', features)
 
-        print layer_stats_all
+        return layer_stats_all
