@@ -22,6 +22,12 @@ To create a table of forest change stats for the Community Forests in Liberia:
 
 `python run_stats.py community_forests`
 
+Optionally, use the -f argument to limit the analyses for a particular feature in each dataset.
+Set the feature argument to string.
+
+e.g,
+`python run_stats.py -r forest_management_contracts -f "Lake Piso"`
+
 ## Available analyses
 
 The GFW analyses currently available for Liberia include:
