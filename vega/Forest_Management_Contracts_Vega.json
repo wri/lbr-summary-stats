@@ -1,0 +1,48 @@
+{
+  "_description": "bar graph of total tree cover loss by FMC",
+  "type": "bar",
+  "dataset": {
+    "url": "https://services6.arcgis.com/bIipaUHHcz1GaAsv/arcgis/rest/services/Forest_Management_Contracts_Stats/FeatureServer/0",
+    "mappings": {
+      "x": {"field": "Name","label": "FMC Name"},
+      "y": {"field": "tc_loss_2000_2015","label": "Tree cover loss 2000 to 2015 (acres)"},
+      "color": {"field": "Name","label": "Protected Area Name"}
+    }
+  }
+};
+{
+  "_description": "scatter plot of total tree cover loss in FMCs by total acres",
+  "type": "scatter",
+  "dataset": {
+    "url": "https://services6.arcgis.com/bIipaUHHcz1GaAsv/arcgis/rest/services/Forest_Management_Contracts_Stats/FeatureServer/0",
+    "mappings": {
+      "x": {"field": "area_acres","label": "Area Acres"},
+      "y": {"field": "tc_loss_2000_2015","label": "Tree cover loss 2000 to 2015"},
+      "color": {"field": "Name","label": "Protected Area Name"}
+    }
+  }
+};
+{
+  "_description": "bar graph of total tree cover by FMC",
+  "type": "bar",
+  "dataset": {
+    "url": "https://services6.arcgis.com/bIipaUHHcz1GaAsv/arcgis/rest/services/Forest_Management_Contracts_Stats/FeatureServer/0",
+    "mappings": {
+      "x": {"field": "Name","label": "FMC Name"},
+      "y": {"field": "tc_extent","label": "Tree cover extent 2000 (acres)"},
+      "color": {"field": "Name","label": "Protected Area Name"}
+    }
+  }
+};
+{
+  "_description": "scatter plot of total tree cover by total concession area",
+  "type": "scatter",
+  "dataset": {
+    "url": "https://services6.arcgis.com/bIipaUHHcz1GaAsv/arcgis/rest/services/Forest_Management_Contracts_Stats/FeatureServer/0",
+    "mappings": {
+      "x": {"field": "area_acres","label": "Concession area (acres)"},
+      "y": {"field": "tc_extent","label": "Tree extent 2000 (acres)"},
+      "color": {"field": "Name","label": "FMC Name"}
+    }
+  }
+}

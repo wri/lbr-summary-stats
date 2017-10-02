@@ -33,4 +33,32 @@
       "color": "orange"
     }
   }
+};
+{
+  "_description": "scatter chart of total tree cover loss in protected areas by total acres",
+  "type": "scatter",
+  "tooltip": {
+    "title": "{Name}",
+    "Content": "{Name}"
+  },
+  "dataset": {
+    "url": "https://services6.arcgis.com/bIipaUHHcz1GaAsv/arcgis/rest/services/Protected_Areas_Stats/FeatureServer/0",
+    "mappings": {
+      "x": {"field": "area_acres","label": "Area Acres"},
+      "y": {"field": "tc_loss_2000_2015","label": "Tree cover loss 2000 to 2015"},
+      "color": {"field": "Name","label": "Protected Area Name"}
+    }
+  }
+};
+{
+  "_description": "bar graph of total carbone emissions due to tree cover loss",
+  "type": "bar",
+  "dataset": {
+    "url": "https://services6.arcgis.com/bIipaUHHcz1GaAsv/arcgis/rest/services/Protected_Areas_Stats/FeatureServer/0",
+    "mappings": {
+      "x": {"field": "Name","label": "Protected Area Name"},
+      "y": {"field": "co2_2000_2014","label": "Carbon Emissions due to tree cover loss 2001 to 2014"},
+      "color": "orange"
+    }
+  }
 }

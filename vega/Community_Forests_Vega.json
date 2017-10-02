@@ -1,0 +1,47 @@
+{
+  "_description": "bar graph of total tree cover loss by community forest",
+  "type": "bar",
+  "dataset": {
+    "url": "https://services6.arcgis.com/bIipaUHHcz1GaAsv/arcgis/rest/services/Community_Forests_Stats/FeatureServer/0",
+    "mappings": {
+      "x": {"field": "Name","label": "Community Forest Name"},
+      "y": {"field": "tc_loss_2000_2015","label": "Tree cover loss 2000 to 2015 (acres)"}
+    }
+  }
+};
+{
+  "_description": "scatter plot of total tree cover loss in FMCs by total acres",
+  "type": "scatter",
+  "dataset": {
+    "url": "https://services6.arcgis.com/bIipaUHHcz1GaAsv/arcgis/rest/services/Community_Forests_Stats/FeatureServer/0",
+    "mappings": {
+      "x": {"field": "area_acres","label": "Area Acres"},
+      "y": {"field": "tc_loss_2000_2015","label": "Tree cover loss 2000 to 2015 (acres)"},
+      "color": {"field": "Name","label": "Community Forest Area Name"}
+    }
+  }
+};
+{
+  "_description": "bar graph of total tree cover by CF",
+  "type": "bar",
+  "dataset": {
+    "url": "https://services6.arcgis.com/bIipaUHHcz1GaAsv/arcgis/rest/services/Community_Forests_Stats/FeatureServer/0",
+    "mappings": {
+      "x": {"field": "Name","label": "Community Forest Name"},
+      "y": {"field": "tc_extent","label": "Tree cover extent 2000 (acres)"},
+      "color": {"field": "Name","label": "Community Forest Name"}
+    }
+  }
+};
+{
+  "_description": "bar graph of total tree cover gain by protected area",
+  "type": "bar",
+  "dataset": {
+    "url": "https://services6.arcgis.com/bIipaUHHcz1GaAsv/arcgis/rest/services/Community_Forests_Stats/FeatureServer/0",
+    "mappings": {
+      "x": {"field": "Name","label": "Community Forest Name"},
+      "y": {"field": "tc_gain","label": "Tree cover gain 2000 to 2012 (acres)"},
+      "color": "orange"
+    }
+  }
+}
